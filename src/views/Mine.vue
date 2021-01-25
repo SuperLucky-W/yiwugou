@@ -1,285 +1,175 @@
 <template>
-    <div class="mine">
-        <div class="head">
-            <van-nav-bar title="用户登录"  color="#fff" left-arrow>
-                <template #right>
-                    <van-cell is-link @click="showPopup">
-                        <van-icon name="ellipsis" size="18" color="#fff"/>
-                    </van-cell>
-                    <van-popup v-model="show" position="bottom" :style="{ height: '30%' }">
-                        <div class="top">
-                            <p>首页</p>
-                            <p class="solid">分类搜索</p>
-                            <p class="solid">购物车</p>
-                        </div>
-                        <div class="bottom">
-                            <p>取消</p>
-                        </div>
-                    </van-popup>
-                </template>
-            </van-nav-bar>
-        </div>
-        <div class="username-login" style="display:none">
-            <div class="weui-cells">
-                <div class="weui-cell">
-                    <div class="weui-cell__bd">
-                        <input type="text" placeholder="账号/邮箱/已验证手机" class="weui-input">
-                    </div> 
-                    <div class="weui-cell__ft" style="display: none;">
-                        <van-icon class="weui-icon-cancel cc" name="close" />
-                    </div>
-                </div> 
-                <div class="weui-cell">
-                    <div class="weui-cell__bd">
-                        <input type="password" placeholder="请输入密码" class="weui-input">
-                    </div> 
-                    <div class="weui-cell__ft" style="display: none;">
-                         <van-icon class="weui-icon-cancel cc" name="close" />
-                    </div>
-                    <div class="weui-cell__ft">
-                        <a href="/password/forget" class="weui-vcode-btn">忘记密码</a>
-                    </div>
-                </div>
-            </div>
-            <div class="weui-btn-area">
-                <button class="weui-btn weui-btn_primary login-btn" style="opacity: 0.5;">登录</button>
-            </div>
-        </div>
-        <div class="mobile-login" style="display: block;">
-            <div class="weui-cells">
-                <div class="weui-cell">
-                    <div class="weui-cell__bd">
-                        <input type="tel" placeholder="请输入手机号" class="weui-input">
-                    </div> 
-                    <div class="weui-cell__ft" style="display: none;">
-                        <i class="weui-icon-cancel cc"></i>
-                    </div> 
-                    <div class="weui-cell__ft">
-                        <button class="weui-vcode-btn">获取验证码</button>
-                    </div>
-                </div>
-                <div class="weui-cell">
-                    <div class="weui-cell__bd">
-                        <input type="tel" placeholder="请输入收到的验证码" class="weui-input">
-                    </div> 
-                    <div class="weui-cell__ft" style="display: none;">
-                        <i class="weui-icon-cancel cc"></i>
-                    </div>
-                </div>
-            </div> 
-            <div class="weui-btn-area">
-                <button class="weui-btn weui-btn_primary login-btn" style="opacity: 0.5;">登录</button>
-            </div> <!---->
-        </div>
-
-        <div class="weui-cells__tips">
-            <span>短信验证码登录</span> 
-            <a href="/auth/register">手机快速注册</a>
-        </div>
+  <div class="mine">
+    <div class="head">
+      <img src="../assets/img/app-logo.jpg" alt="" />
+      <div class="title">
+        <p class="t1">用户</p>
+        <p>啦啦啦</p>
+      </div>
     </div>
+    <div class="buyer-menu">
+      <a href="#" class="menu-item"
+        ><div class="icon buyer-order"></div>
+        <div class="text">购买订单</div></a
+      >
+      <a href="#" class="menu-item"
+        ><div class="icon address"></div>
+        <div class="text">收货地址</div></a
+      >
+      <a href="#" class="menu-item"
+        ><div class="icon favorites"></div>
+        <div class="text">收藏夹</div></a
+      >
+      <a href="#" class="menu-item"
+        ><div class="icon coupon"></div>
+        <div class="text">优惠券</div></a
+      >
+      <a
+        href="http://h.yiwugou.com/help/help_center/menu.html?t=1526004017715"
+        class="menu-item"
+        ><div class="icon help-center"></div>
+        <div class="text">帮助中心</div></a
+      >
+    </div>
+    <div class="btn-area">
+      <div class="btn" @click="quit()">退出登陆</div>
+    </div>
+    <a href="//a.app.qq.com/o/simple.jsp?pkgname=com.yiwugou.yiwukan" class="hint">
+    <strong>提示：</strong>退款/售后请前往义乌购 App 操作，退款将退至 App 钱包。
+    <a href="//a.app.qq.com/o/simple.jsp?pkgname=com.yiwugou.yiwukan">点击下载 APP</a></a>
+    <Foot></Foot>
+  </div>
 </template>
 
 <script>
-export default {
+import { Dialog } from 'vant';
+
+import Foot from '../components/foot.vue';
+// Dialog({ message: '提示' });
+  export default {
+    name:'mine',
+    components:{
+      Foot
+
+    },
     data(){
-        return{
-            show:false
-        }
+      return{
+
+      }
     },
     methods:{
-        showPopup(){
-            this.show=true
-        }
+      quit(){
+        Dialog.confirm({
+          title: '温馨提示',
+          message: '您确定要退出吗？',
+        }).then(() => {
+            console.log(111)
+            localStorage.removeItem('status')
+            localStorage.removeItem('tel')
+            this.$router.push('/')
+        }).catch(() => {
+            console.log(222)
+        });
+      }
     }
-}
+  };
 </script>
 
 <style scoped>
-    body,html{
-        height: 100%;
-        overflow: hidden;
-        background-color: #f8f8f8;
-    }
-    .head{
-        width: 100%;
-
-        background-color:#ff6600;
-    }
-    .head .van-nav-bar{
-     
-        background-color: #ff6600;
-    }
-    /deep/ .van-nav-bar__content{
-          height: 1.2rem;
-    }
-    /deep/ .head .van-icon {
-        color: #fff;
-    }
-    /deep/ .head .van-nav-bar__title {
-        color: #fff; 
-        font-size: .48rem;
-    }
-    /deep/ .head .van-cell{
-        background-color: #ff6600;
-    }
-    /deep/ .head .van-cell__right-icon{
-        display: none;
-    }
-    .head .van-popup{
-        background-color: #efeff4;
-    }
-    .head .van-popup .top{
-        /* height: 3.904rem; */
-        background-color: #fcfcfd;
-    }
-    .head .van-popup .top P{
-        font-size: .48rem;
-        text-align: center;
-        line-height: .746667rem;
-        padding: .266667rem 0;
-        position: relative;
-    }
-    .head .van-popup .top .solid::after{
-        content: " ";
-        position: absolute;
-        left: 0;
-        top: 0;
-        right: 0;
-        height: 1px;
-        border-top: 1px solid #e5e5e5;
-        color: #e5e5e5;
-        transform-origin: 0 0;
-        transform: scaleY(.5);
-    }
-    .head .van-popup .bottom{
-        margin-top: .21rem;
-        background-color: #fcfcfd;
-    }
-    .head .van-popup .bottom p{
-        padding: .266667rem 0;
-        font-size: .48rem;
-        line-height: .746667rem;
-    }
-    /* 账号密码登录 */
-    .weui-cells {
-        margin-top: 1.17647059em;
-        background-color: #fff;
-        line-height: 1.47058824;
-        font-size: 17px;
-        overflow: hidden;
-        position: relative;
-    }
-    .weui-cell {
-        padding: 10px 15px;
-        position: relative;
-        display: -webkit-box;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    .weui-cell:before {
-       content: " ";
-        position: absolute;
-        left: 0;
-        top: 0;
-        right: 0;
-        height: 1px;
-        border-top: 1px solid #e5e5e5;
-        color: #e5e5e5;
-        transform-origin: 0 0;
-        transform: scaleY(.5);
-        left: 15px;
-        z-index: 2;
-    }
-    .weui-cell .weui-input {
-        width: 100%;
-        border: 0;
-        outline: 0;
-        background-color: transparent;
-        font-size: inherit;
-        color: inherit;
-        height: 1.47058824em;
-        line-height: 1.47058824;
-    }
-    .weui-cell .weui-cell__ft {
-        text-align: right;
-        color: #999;
-    }
-    .weui-cell .weui-cell__ft .cc{
-        color: #ccc;
-        font-size: .586667rem;
-        vertical-align: middle;
-    }
-    .weui-cell .weui-cell__ft a{
-        color: #ff6600;
-        display: inline-block;
-        padding: 0 .6em 0 .7em;
-        border-left: 1px solid #e5e5e5;
-        margin-left: 5px;
-        height: auto;
-        line-height: normal;
-        vertical-align: middle;
-        font-size: 17px;
-    }
-    /* 登录按钮 */
-    .weui-btn-area {
-        margin: 1.17647059em 15px .3em;
-        opacity: .9;
-    }
-    
-    .login-btn {
-        margin: 5vw 0;
-    }
-     button.weui-btn, input.weui-btn {
-        width: 100%;
-        border-width: 0;
-        outline: 0;
-    }
-    .weui-btn_primary {
-        background-color: #ff6600;
-    }
-    .weui-btn {
-        position: relative;
-        display: block;
-        padding-left: 14px;
-        padding-right: 14px;
-        box-sizing: border-box;
-        font-size: 18px;
-        text-align: center;
-        text-decoration: none;
-        color: #fff;
-        line-height: 2.55555556;
-        border-radius: 5px;
-        -webkit-tap-highlight-color: rgba(0,0,0,0);
-        overflow: hidden;
-    }
-    /* 获取验证码 */
-    .weui-vcode-btn {
-        display: inline-block;
-        padding: 0 .6em 0 .7em;
-        border-left: 1px solid #e5e5e5;
-        height: auto;
-        line-height: normal;
-        font-size: 17px;
-        color: #f60;
-        border: .026667rem solid transparent;
-        border-left-color: #e5e5e5;
-        background-color: #fff;
-        margin-left: 5px;
-        vertical-align: middle;
-
-    }
-    /* 切换 */
-    .weui-cells__tips {
-        display: flex;
-        justify-content: space-between;
-        margin-top: .3em;
-        color: #999;
-        padding-left: 15px;
-        padding-right: 15px;
-        font-size: 14px;
-    }
-    .weui-cells__tips a{
-        color: #999;
-    }
+  .mine {
+    width: 100%;
+    height: 100vh;
+  }
+  .mine .head {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 20px;
+    color: #fff;
+    background: url("../assets/img/mine.png") no-repeat center center;
+    background-size: cover;
+  }
+  .mine .head img {
+    width: 1.866667rem;
+    height: 1.866667rem;
+    border-radius: 50%;
+    margin-right: 0.266667rem;
+    box-shadow: 0 0 10px #fefefe;
+    background: #fff;
+  }
+  .mine .head .title {
+    font-size: 0.32rem;
+  }
+  .mine .head .t1 {
+    font-size: 0.426667rem;
+  }
+  .mine .buyer-menu{
+    padding: .533333rem 0;
+    overflow: hidden;
+  }
+  .mine .buyer-menu .menu-item{
+    float: left;
+    width: 25%;
+    text-align: center;
+    overflow: hidden;
+    margin-bottom: .533333rem;
+    font-size: .373333rem;
+    color: #666;
+  }
+  .mine .buyer-menu .menu-item .icon{
+    display: inline-block;
+    height: 1.333333rem;
+    line-height: 1.333333rem;
+    width: 1.333333rem;
+    background: no-repeat 50%/cover;
+  }
+  .mine .buyer-menu .menu-item .icon.buyer-order {
+    background-image: url('../assets/img/mine-1.png');
+  }
+  .mine .buyer-menu .menu-item .icon.address {
+    background-image: url('../assets/img/mine-2.png');
+  }
+  .mine .buyer-menu .menu-item .icon.favorites {
+    background-image: url('../assets/img/mine-3.png');
+  }
+  .mine .buyer-menu .menu-item .icon.coupon {
+    background-image: url('../assets/img/mine-4.png');
+  }
+  .mine .buyer-menu .menu-item .icon.help-center{
+    background-image: url('../assets/img/mine-5.png');
+  }
+  .mine .btn-area {
+    padding: 0 .4rem;
+    margin: 1.066667rem 0 .266667rem;
+  }
+  .mine .btn-area .btn {
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: .373333rem;
+    padding-right: .373333rem;
+    box-sizing: border-box;
+    font-size: .48rem;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    line-height: 2.55555556;
+    border-radius: .133333rem;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    overflow: hidden;
+    background-color: #f60;
+    margin-bottom: .266667rem;
+  }
+  .hint {
+    display: block;
+    line-height: .533333rem;
+    height: 1.066667rem;
+    font-size: .426667rem;
+    padding: 0 .4rem;
+    color: #999;
+  }
+  .hint a {
+    color: #f60;
+  }
 </style>

@@ -115,7 +115,7 @@
         <div class="gutter"></div>
       </div>
       <div class="products">
-          <div class="item" v-for="(item,index) in lists" :key="index">
+          <div class="item" v-for="(item,index) in lists" :key="index" @click="jump(item.id)">
             <div class="img">
               <img :src="'https://img1.yiwugou.com/'+item.picture2" alt="" />
             </div>
@@ -124,7 +124,7 @@
                 <h3>{{item.title}}</h3>
               </div>
               <div class="price">
-                <span>{{item.sellPrice?"￥"+item.sellPrice:''}}</span>
+                <span>{{item.sellPrice?"￥"+parseFloat(item.sellPrice/100).toFixed(2):''}}</span>
               </div>
               <div class="start-number">{{item.startNum?item.startNum+"个起购":'价格联系商家'}}</div>
               <div class="shop-name">{{item.shopName}}</div>
@@ -151,7 +151,7 @@
         </ul>
         <p>© 2012-2021 yiwugo.com 版权所有</p>
       </div>
-  <Foot></Foot>
+      <Foot></Foot>
   </div>
 </template>
 
@@ -177,11 +177,20 @@ export default {
         console.log(err);
       })
 
+  },
+  methods:{
+    jump(i){
+      this.$router.push('/detail/'+i)
+    }
   }
 }
 </script>
 
 <style scoped>
+  .container{
+    height: 100vh;
+    background-color: #f8f8f8;
+  }
   /* 头部搜索条 */
   .head{
     width: 100%;
@@ -287,7 +296,9 @@ export default {
     position: relative;
     overflow: hidden;
     background: #fff;
-    margin-top: 3px;
+    margin-top: .16rem;
+    padding: 0 .266667rem;
+    box-sizing: border-box;
   }
   .products .item .img{
     width: 30%;
